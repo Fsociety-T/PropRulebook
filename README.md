@@ -11,6 +11,12 @@ A fast browser-based rules reference for prop-firm accounts. This is a **persona
 
 Every rule shows severity, exact calculation, a dollar example, a source link and a verified date. Fees and refunds are excluded. Scaling is shown only where it changes drawdown limits.
 
+## Live site
+
+<https://fsociety-t.github.io/PropRulebook/>
+
+Published from the `main` branch root with GitHub Pages. Commit to `main` and Pages rebuilds automatically.
+
 ## How to run
 
 Prop Rulebook is plain HTML, CSS and JavaScript. No build step, no dependencies, no Node required. Open the project folder in a file manager and double-click `index.html` — or serve it from any web server if you prefer:
