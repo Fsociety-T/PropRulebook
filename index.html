@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prop Rulebook — a personal, source-linked summary of the rules that matter for FundingPips, Alpha Capital, FundedSquad and The5ers accounts.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#080c12">
+  <title>Prop Rulebook</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#view">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="#/" aria-label="Prop Rulebook — rules home">
+      <span class="brand-mark" aria-hidden="true">PR</span>
+      <span class="brand-text"><strong>Prop</strong><span>Rulebook</span></span>
+    </a>
+
+    <div class="topbar-actions">
+      <button id="search-open" class="search-trigger" type="button" aria-label="Search all rules">
+        <span class="search-trigger-label">Search rules</span>
+        <kbd>Ctrl K</kbd>
+      </button>
+
+      <label class="size-picker" for="size-select">
+        <span>Account size</span>
+        <select id="size-select" aria-label="Example account size"></select>
+      </label>
+
+      <a class="btn btn-ghost compare-link" href="#/compare">Compare</a>
+      <button id="print-btn" class="btn btn-ghost" type="button">Print</button>
+      <button id="menu-btn" class="btn btn-icon menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sidebar">☰</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar" class="sidebar" aria-label="Firms and models">
+      <nav id="firm-nav" class="firm-nav"></nav>
+      <div class="sidebar-footer">
+        <p><strong>Personal notes.</strong> Not an official rulebook. Always confirm in your dashboard.</p>
+        <p class="sidebar-meta">Verified <span data-verified>21 Nov 2026</span></p>
+        <a href="#/sources">Sources &amp; verification dates →</a>
+      </div>
+    </aside>
+    <div id="sidebar-backdrop" class="sidebar-backdrop" hidden></div>
+
+    <main id="view" class="view" tabindex="-1">
+      <noscript>
+        <div class="notice">This site needs JavaScript to switch between rule pages. The data is in <code>data/</code> if you prefer to read it directly.</div>
+      </noscript>
+    </main>
+  </div>
+
+  <div id="search-overlay" class="search-overlay" hidden>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-labelledby="search-title">
+      <div class="search-head">
+        <div>
+          <p class="eyebrow">Everything, one search</p>
+          <h2 id="search-title">Search rules</h2>
+        </div>
+        <button id="search-close" class="btn btn-icon" type="button" aria-label="Close search">×</button>
+      </div>
+      <input id="search-input" class="search-input" type="search" placeholder="Try “news”, “daily loss”, “consistency”…" autocomplete="off" spellcheck="false">
+      <div id="search-results" class="search-results" aria-live="polite"></div>
+      <div class="search-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> move</span>
+        <span><kbd>Enter</kbd> open</span>
+        <span><kbd>Esc</kbd> close</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="data/core.js"></script>
+  <script src="data/fundingpips.js"></script>
+  <script src="data/alpha.js"></script>
+  <script src="data/fundedsquad.js"></script>
+  <script src="data/the5ers.js"></script>
+  <script src="data/rules.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
