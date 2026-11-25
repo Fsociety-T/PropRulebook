@@ -21,8 +21,7 @@
 
   function updateTopbarPrice(model) {
     if (!topbarPrice) return;
-    const price = modelPrice(model);
-    topbarPrice.textContent = price || "";
+    topbarPrice.textContent = "";
   }
 
   if (!RB) {
@@ -392,9 +391,7 @@
         ? `<div class="notice notice-warn"><strong>Example size:</strong> ${fmtMoney(state.size)} is outside this model's listed range (${esc(model.sizes)}). The dollar examples still update, but confirm this size is offered.</div>`
         : "";
 
-    const priceNotice = modelPrice(model)
-      ? `<div class="notice notice-price"><strong>Prices:</strong> ${modelPrice(model)}</div>`
-      : "";
+    const priceNotice = "";
 
     const phaseToggle =
       model.phases.length > 1
@@ -627,13 +624,7 @@
       </div>`;
   }
 
-  function modelPrice(model) {
-    const prices = model.prices || {};
-    const parts = Object.entries(prices).map(([size, price]) =>
-      size === "100000" ? `${fmtMoney(100000)}: ${esc(price)}` : size === "200000" ? `${fmtMoney(200000)}: ${esc(price)}` : `${esc(price)}`
-    );
-    return parts.length ? `${parts.join(" · ")}` : "";
-  }
+  /* ------------------------------------------------------------------ */
 
   const FIRM_MAX_ALLOCATION = {
     fundingpips: "$400K",
@@ -682,7 +673,6 @@
           <div class="model-card-meta">
             <span>${esc(model.sizes)}</span>
             <span>${esc(model.phases.map(phaseLabel).join(" · "))}</span>
-            ${modelPrice(model) ? `<span class="model-price">${modelPrice(model)}</span>` : ""}
             ${quick ? `<span>${esc(quick)}</span>` : ""}
           </div>
         </a>
