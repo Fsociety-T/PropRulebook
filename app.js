@@ -17,7 +17,6 @@
   const searchResults = document.getElementById("search-results");
   const sizeSelect = document.getElementById("size-select");
   const printBtn = document.getElementById("print-btn");
-  const themeToggle = document.getElementById("theme-toggle");
   const topbarPrice = document.getElementById("topbar-price");
 
   function updateTopbarPrice(model) {
@@ -1459,23 +1458,7 @@
   /* Boot                                                                */
   /* ------------------------------------------------------------------ */
 
-  function initTheme() {
-    const saved = (() => {
-      try { return localStorage.getItem("propRulebook.theme"); } catch { return null; }
-    })();
-    document.body.dataset.theme = saved === "light" ? "light" : "dark";
-    if (themeToggle) themeToggle.textContent = saved === "light" ? "☀" : "☾";
-  }
-
-  function toggleTheme() {
-    const next = document.body.dataset.theme === "light" ? "dark" : "light";
-    document.body.dataset.theme = next;
-    if (themeToggle) themeToggle.textContent = next === "light" ? "☀" : "☾";
-    try { localStorage.setItem("propRulebook.theme", next); } catch {}
-  }
-
-  initTheme();
-  if (themeToggle) themeToggle.addEventListener("click", toggleTheme);
+  /* ------------------------------------------------------------------ */
 
   function init() {
     if (sizeSelect) {

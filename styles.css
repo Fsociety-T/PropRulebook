@@ -61,40 +61,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-body[data-theme="light"] {
-  color-scheme: light;
-  --bg: #f7f6f0;
-  --bg-soft: #f1eee5;
-  --panel: #fffaf1;
-  --panel-2: #f8f2e7;
-  --panel-3: #f2ebd9;
-  --line: #d9d0bc;
-  --line-soft: #e3dcc8;
-  --text: #3b3a36;
-  --muted: #8b897f;
-  --dim: #b4b1a5;
-  --accent: #a05a1f;
-  --accent-2: #8a4d18;
-  --accent-soft: rgba(160, 90, 31, 0.1);
-  --red: #b33826;
-  --red-soft: rgba(179, 56, 38, 0.1);
-  --amber: #b36b00;
-  --amber-soft: rgba(179, 107, 0, 0.1);
-  --blue: #4a6a9a;
-  --blue-soft: rgba(74, 106, 154, 0.1);
-  --purple: #7a5a8a;
-  --purple-soft: rgba(122, 90, 138, 0.1);
-  --slate: #7b7666;
-  --slate-soft: rgba(123, 118, 102, 0.1);
-  --shadow: 0 12px 30px rgba(139, 93, 31, 0.12);
-}
-
-body[data-theme="light"] body::before { opacity: 0.2; }
-
-body[data-theme="light"] #theme-toggle {
-  color: #3b3a36;
-}
-
 body::before {
   content: "";
   position: fixed;
