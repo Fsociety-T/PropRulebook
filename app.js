@@ -17,7 +17,13 @@
   const searchResults = document.getElementById("search-results");
   const sizeSelect = document.getElementById("size-select");
   const printBtn = document.getElementById("print-btn");
-  const toastEl = document.getElementById("toast");
+  const topbarPrice = document.getElementById("topbar-price");
+
+  function updateTopbarPrice(model) {
+    if (!topbarPrice) return;
+    const price = modelPrice(model);
+    topbarPrice.innerHTML = price ? `Price <strong>${esc(price)}</strong>` : "Price <strong>$100,000</strong>";
+  }
 
   if (!RB) {
     view.innerHTML =
@@ -347,6 +353,7 @@
   /* ------------------------------------------------------------------ */
 
   function renderModelPage(firm, model, route) {
+    updateTopbarPrice(model);
     view.dataset.modelKey = model.key;
     const ruleId = route.params.get("rule");
     let phase = phaseFor(model);
