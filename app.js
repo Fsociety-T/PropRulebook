@@ -297,9 +297,11 @@
               : badge
                 ? `<span class="nav-badge ${badge === "Legacy" ? "is-legacy" : ""}">${esc(badge)}</span>`
                 : "";
+            const price = modelPrice(model);
             return `
               <a class="nav-model" href="${modelHref(model)}" data-keys="${esc(keys.join(" "))}" title="${esc(model.name)}">
                 <span class="nav-model-label">${esc(label)}</span>
+                ${price ? `<span class="nav-model-price">${esc(price)}</span>` : ""}
                 ${meta ? `<span class="nav-model-meta">${meta}</span>` : ""}
               </a>`;
           })

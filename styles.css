@@ -437,6 +437,13 @@ kbd {
   flex: 0 0 auto;
 }
 
+.nav-model-price {
+  display: block;
+  font-size: 8px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .nav-firm-head > div {
   display: flex;
   flex-direction: column;
