@@ -163,7 +163,7 @@ const aqMarginUsage = (source) =>
     body: "Margin usage is the margin used by open trades ÷ account equity × 100. For XAUUSD, one lot is 100 oz and uses 100 × gold price ÷ leverage. Average margin usage for sizing is the sum of those margins for all open XAUUSD lots ÷ equity × 100; it must stay ≤80%.",
     calc: `Average margin usage = (lots × 100 × gold price ÷ leverage) ÷ equity × 100. Each XAUUSD lot = 100 oz; gold price is in dollars.`,
     example: `At {size}, 1 lot of XAUUSD at $4,000 and 1:10 uses $40,000 margin; if equity is {size}, usage is {amt:40} on a $100K account and {amt:20} on a $200K account.`,
-    note: "Use the average of all open lots; do not count pending order margin until it fills. Products set their own 80% rules; check the platform margin notice.",
+    note: "Calculated example: 1 lot × 100 oz × $4,000 ÷ 1:10 = $40,000 margin; $40,000 ÷ $100,000 equity = 40% usage.",
     source,
   });
 
