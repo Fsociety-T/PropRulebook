@@ -224,6 +224,9 @@
     } else if (route.parts[0] === "compare") {
       renderCompare();
       title = "Compare models";
+    } else if (route.parts[0] === "calc") {
+      renderCalc();
+      title = "Margin calculator";
     } else if (route.parts[0] === "sources") {
       renderSources();
       title = "Sources";
@@ -272,6 +275,7 @@
       <div class="nav-secondary">
         <a href="#/models" data-route="models">All models</a>
         <a href="#/compare" data-route="compare">Compare</a>
+        <a href="#/calc" data-route="calc">Margin calc</a>
         <a href="#/sources" data-route="sources">Sources</a>
         <a href="#/" data-route="">Rules home</a>
       </div>`;
@@ -647,6 +651,62 @@
         </a>
         ${variants}
       </div>`;
+  }
+
+  function renderCalc() {
+    view.removeAttribute("data-model-key");
+    view.innerHTML = `
+      <div class="page">
+        <header class="index-head">
+          <p class="eyebrow">Margin calculator</p>
+          <h1>XAUUSD margin calculator</h1>
+          <p>Enter your account equity, XAUUSD price, leverage and target average margin usage. The form shows the margin used by your XAUUSD lots and the maximum lots that keep that average below the target.</p>
+        </header>
+        <form id="calc-form" class="calc-form">
+          <div class="calc-grid">
+            <label>Account equity <input type="number" id="calc-equity" value="100000" min="0" step="100" autocomplete="off"></label>
+            <label>XAUUSD price <input type="number" id="calc-price" value="4000" min="0.01" step="0.01" autocomplete="off"></label>
+            <label>Leverage <input type="number" id="calc-leverage" value="10" min="0.01" step="0.01" autocomplete="off"></label>
+            <label>Target average margin % <input type="number" id="calc-usage" value="30" min="0" step="0.1" autocomplete="off"></label>
+            <label>Lots to check <input type="number" id="calc-lots" value="1" min="0" step="0.01" autocomplete="off"></label>
+          </div>
+          <button type="submit" class="btn">Calculate</button>
+        </form>
+        <div id="calc-results" class="calc-results"></div>
+      </div>`;
+
+    const calculate = () => {
+      const num = (id, fallback) => {
+        const el = qs(`#${id}`);
+        const value = el ? Number(el.value) : NaN;
+        return Number.isFinite(value) && value > 0 ? value : fallback;
+      };
+      const equity = num("calc-equity", 100000);
+      const price = num("calc-price", 4000);
+      const leverage = num("calc-leverage", 10);
+      const targetUsage = num("calc-usage", 30);
+      const lots = num("calc-lots", 1);
+
+      const perLot = (lotsParam) => (lotsParam * 100 * price) / leverage;
+      const marginUsed = perLot(lots);
+      const averageUsage = (marginUsed / equity) * 100;
+      const maxLots = (equity * (targetUsage / 100)) / (100 * price / leverage);
+
+      const results = qs("#calc-results");
+      results.innerHTML = `
+        <div class="calc-out">
+          <div><span class="calc-label">Margin used by ${lots.toFixed(2)} lot(s)</span><strong>${fmtMoney(marginUsed)}</strong></div>
+          <div><span class="calc-label">Average margin usage</span><strong>${averageUsage.toFixed(2)}%</strong></div>
+          <div><span class="calc-label">Max lots for ${targetUsage}% average</span><strong>${maxLots.toFixed(2)}</strong></div>
+        </div>`;
+    };
+
+    qs("#calc-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      calculate();
+    });
+    qs("#calc-form").addEventListener("input", calculate);
+    calculate();
   }
 
   /* ------------------------------------------------------------------ */
