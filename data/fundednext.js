@@ -75,12 +75,11 @@ const fnMarginUsage = (source) =>
     id: "margin-usage",
     group: "blocker",
     severity: "Rule violation",
-    title: "Margin usage guardrail",
-    value: "Target ≤30%; lots = balance × target% ÷ (100 × price ÷ leverage)",
-    body: "Margin usage is the margin used by open positions ÷ account balance × 100. For XAUUSD, one lot is 100 oz and uses 100 × gold price ÷ leverage. Average margin usage for sizing is the sum of open XAUUSD lots ÷ balance × 100. This guardrail is personal; keep total margin below the firm maximum.",
-    calc: `Average margin usage = Σ(lots × 100 × gold price ÷ leverage) ÷ balance × 100. Max lots for a target average usage = balance × target usage% ÷ (100 × gold price ÷ leverage).`,
-    example: `At {size}, 1 lot of XAUUSD at $4,000 and 1:15 funded uses $26,667 margin; usage is about {amt:26.7} on a $100K account and {amt:13.3} on a $200K account.`,
-    note: "FundedNext publishes no fixed lot cap. Use the smaller of the 3% risk budget and the margin ceiling; margin use should stay comfortably below any firm maximum.",
+    title: "Gold margin usage guardrail",
+    value: "Target avg XAUUSD margin ÷ balance ≤ firm max",
+    body: "Use the average margin of open XAUUSD lots ÷ balance × 100. One XAUUSD lot = 100 oz and uses 100 × gold price ÷ leverage.",
+    calc: `Avg usage = Σ(lots × 100 × gold price ÷ leverage) ÷ balance × 100. Max lots for a target avg = balance × target% ÷ (100 × price ÷ leverage).`,
+    example: `At {size}, 1 lot of XAUUSD at $4,000 and 1:15 funded uses $26,667 margin; usage is $26,667 ÷ {size} × 100.`,
     source,
   });
 
@@ -147,9 +146,9 @@ const fnGold = (evalLev, fundedLev, source) =>
     title: "XAUUSD sizing guardrail",
     value: "30% margin · 3% risk",
     body: `FundedNext sets no fixed gold lot cap. Two ceilings matter: the funded 3% risk limit and the margin you choose to use. This guardrail uses a 30% margin ceiling (FundedNext recommends 20–30%) and a $4,000 gold price.`,
-    calc: `Margin lots = size × 30% × leverage ÷ (100 × gold price). Risk lots = size × 3% ÷ (100 × stop distance).`,
-    example: `On {size} at $4,000 gold: 30% margin at 1:${fundedLev} funded allows {goldLots:${fundedLev}:30:4000} lots; a 3% risk budget with a $10 stop allows {goldRiskLots:3:10} lots. Use the smaller.`,
-    note: `Evaluation leverage is 1:${evalLev}, so the same 30% ceiling allows {goldLots:${evalLev}:30:4000} lots. During evaluation there is no firm 3% risk cap; the 3% budget is a personal guardrail. Recalculate at the live gold price; the risk cap does not change with leverage.`,
+    calc: `Lots = size × 30% × leverage ÷ (100 × gold price). Risk lots = size × 3% ÷ (100 × stop). Avg usage = Σ(lots × 100 × price ÷ leverage) ÷ balance × 100.`,
+    example: `On {size} at $4,000 gold, funded 1:${fundedLev}: compare the 30% and 3% risk budget; use the smaller.`,
+    note: `Evaluation leverage is 1:${evalLev}. Check live gold price.`,
     source,
   });
 

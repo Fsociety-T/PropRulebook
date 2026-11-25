@@ -158,11 +158,11 @@ const aqMarginUsage = (source) =>
     id: "margin-usage",
     group: "blocker",
     severity: "Rule violation",
-    title: "Margin usage",
-    value: "Avg margin ÷ equity ≤80%; lots = equity × target% ÷ (100 × price ÷ leverage)",
-    body: "Margin usage is the margin used by open trades ÷ account equity × 100. For XAUUSD, one lot is 100 oz and uses 100 × gold price ÷ leverage. Average margin usage for sizing is the sum of those margins for all open XAUUSD lots ÷ equity × 100; it must stay ≤80%.",
-    calc: `Average margin usage = Σ(lots × 100 × gold price ÷ leverage) ÷ equity × 100. Max lots for a target average usage = equity × target usage% ÷ (100 × gold price ÷ leverage).`,
-    example: `At {size}, 1 lot of XAUUSD at $4,000 and 1:10 uses $40,000 margin; if equity is {size}, usage is {amt:40} on a $100K account and {amt:20} on a $200K account. To target 30% average margin, max lots = equity × 30% ÷ $4,000 = {amt:7.5} on a $100K account, so use 7.5 lots.`,
+    title: "Gold margin usage",
+    value: "Avg XAUUSD margin ÷ equity ≤80%",
+    body: "Use the average margin of open XAUUSD lots ÷ equity × 100. One XAUUSD lot = 100 oz and uses 100 × gold price ÷ leverage.",
+    calc: `Avg usage = Σ(lots × 100 × gold price ÷ leverage) ÷ equity × 100. Max lots for a target avg = equity × target% ÷ (100 × price ÷ leverage).`,
+    example: `At {size}, 1 lot of XAUUSD at $4,000 and 1:10 uses $40,000 margin; usage is $40,000 ÷ {size} × 100. To target 30% avg, max lots = equity × 30% ÷ $4,000.`,
     source,
   });
 
@@ -186,13 +186,10 @@ const aqGold = (evalLev, fundedLev, source) =>
     severity: "Reference",
     title: "XAUUSD sizing guardrail",
     value: "80% hard cap · 30% personal",
-    body: `AquaFunded has no fixed gold lot cap, but the 80% margin rule applies. This guardrail uses a 30% personal margin ceiling and a 1% risk budget. Gold is $4,000 in the example.`,
-    calc: `Margin lots = size × margin % × leverage ÷ (100 × gold price). Risk lots = size × 1% ÷ (100 × stop distance). Average margin usage = Σ(lots × 100 × gold price ÷ leverage) ÷ equity × 100.`,
-    example: `On {size} at $4,000 gold, funded 1:${fundedLev}: 80% margin allows {goldLots:${fundedLev}:80:4000} lots; 30% allows {goldLots:${fundedLev}:30:4000} lots; a 1% risk budget with a $10 stop allows {goldRiskLots:1:10} lots. Use the smallest.`,
-    note:
-      evalLev === fundedLev
-        ? `Leverage is 1:${fundedLev} in every phase. Recalculate at the live gold price.`
-        : `Evaluation leverage is 1:${evalLev}: the 80% cap allows {goldLots:${evalLev}:80:4000} lots and the 30% ceiling allows {goldLots:${evalLev}:30:4000} lots. Recalculate at the live gold price.`,
+    body: `AquaFunded has no fixed gold lot cap. The 80% margin rule applies; this guardrail uses a 30% personal ceiling and a 1% risk budget.`,
+    calc: `Margin lots = size × margin% × leverage ÷ (100 × gold price). Risk lots = size × 1% ÷ (100 × stop). Avg usage = Σ(lots × 100 × price ÷ leverage) ÷ equity × 100.`,
+    example: `On {size} at $4,000 gold, funded 1:${fundedLev}: 80% cap, 30% ceiling, and a $10 stop are shown on the margin-usage rule.`,
+    note: evalLev === fundedLev ? `Leverage is 1:${fundedLev} in every phase.` : `Evaluation leverage is 1:${evalLev}.`,
     source,
   });
 
