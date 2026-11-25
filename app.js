@@ -660,12 +660,12 @@
         <header class="index-head">
           <p class="eyebrow">Margin calculator</p>
           <h1>XAUUSD margin calculator</h1>
-          <p>Enter your account equity, XAUUSD price, leverage and target average margin usage. The form shows the margin used by your XAUUSD lots and the maximum lots that keep that average below the target.</p>
+          <p>Enter your account equity, gold (XAUUSD) price, leverage and target average margin usage. One XAUUSD lot is 100 oz. The form shows the margin used by your gold lots and the maximum gold lots that keep that average below the target.</p>
         </header>
         <form id="calc-form" class="calc-form">
           <div class="calc-grid">
             <label>Account equity <input type="number" id="calc-equity" value="100000" min="0" step="100" autocomplete="off"></label>
-            <label>XAUUSD price <input type="number" id="calc-price" value="4000" min="0.01" step="0.01" autocomplete="off"></label>
+            <label>XAUUSD price (oz value) <input type="number" id="calc-price" value="4000" min="0.01" step="0.01" autocomplete="off"></label>
             <label>Leverage <input type="number" id="calc-leverage" value="10" min="0.01" step="0.01" autocomplete="off"></label>
             <label>Target average margin % <input type="number" id="calc-usage" value="30" min="0" step="0.1" autocomplete="off"></label>
             <label>Lots to check <input type="number" id="calc-lots" value="1" min="0" step="0.01" autocomplete="off"></label>
@@ -695,9 +695,9 @@
       const results = qs("#calc-results");
       results.innerHTML = `
         <div class="calc-out">
-          <div><span class="calc-label">Margin used by ${lots.toFixed(2)} lot(s)</span><strong>${fmtMoney(marginUsed)}</strong></div>
-          <div><span class="calc-label">Average margin usage</span><strong>${averageUsage.toFixed(2)}%</strong></div>
-          <div><span class="calc-label">Max lots for ${targetUsage}% average</span><strong>${maxLots.toFixed(2)}</strong></div>
+          <div><span class="calc-label">Margin used by ${lots.toFixed(2)} XAUUSD lot(s)</span><strong>${fmtMoney(marginUsed)}</strong></div>
+          <div><span class="calc-label">Average XAUUSD margin usage</span><strong>${averageUsage.toFixed(2)}%</strong></div>
+          <div><span class="calc-label">Max XAUUSD lots for ${targetUsage}% average</span><strong>${maxLots.toFixed(2)}</strong></div>
         </div>`;
     };
 
