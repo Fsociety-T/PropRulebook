@@ -188,7 +188,7 @@ const aqGold = (evalLev, fundedLev, source) =>
     title: "XAUUSD sizing guardrail",
     value: "80% hard cap · 30% personal",
     body: `AquaFunded has no fixed gold lot cap, but the 80% margin rule applies. This guardrail uses a 30% personal margin ceiling and a 1% risk budget. Gold is $4,000 in the example.`,
-    calc: `Margin lots = size × margin % × leverage ÷ (100 × gold price). Risk lots = size × 1% ÷ (100 × stop distance).`,
+    calc: `Margin lots = size × margin % × leverage ÷ (100 × gold price). Risk lots = size × 1% ÷ (100 × stop distance). Average margin usage = Σ(lots × 100 × gold price ÷ leverage) ÷ equity × 100.`,
     example: `On {size} at $4,000 gold, funded 1:${fundedLev}: 80% margin allows {goldLots:${fundedLev}:80:4000} lots; 30% allows {goldLots:${fundedLev}:30:4000} lots; a 1% risk budget with a $10 stop allows {goldRiskLots:1:10} lots. Use the smallest.`,
     note:
       evalLev === fundedLev
