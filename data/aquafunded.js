@@ -153,6 +153,20 @@ const aqMargin = (source) =>
     source,
   });
 
+const aqMarginUsage = (source) =>
+  RB.rule({
+    id: "margin-usage",
+    group: "blocker",
+    severity: "Rule violation",
+    title: "Margin usage",
+    value: "Average ≤80% of equity",
+    body: "Margin usage is the margin used by open trades ÷ account equity × 100. For XAUUSD, one lot is 100 oz and uses 100 × gold price ÷ leverage. Average margin usage for sizing is the sum of those margins for all open XAUUSD lots ÷ equity × 100; it must stay ≤80%.",
+    calc: `Average margin usage = (lots × 100 × gold price ÷ leverage) ÷ equity × 100. Each XAUUSD lot = 100 oz; gold price is in dollars.`,
+    example: `At {size}, 1 lot of XAUUSD at $4,000 and 1:10 uses $40,000 margin; if equity is {size}, usage is {amt:40} on a $100K account and {amt:20} on a $200K account.`,
+    note: "Use the average of all open lots; do not count pending order margin until it fills. Products set their own 80% rules; check the platform margin notice.",
+    source,
+  });
+
 const aqLots = (source) =>
   RB.rule({
     id: "lots",
@@ -339,6 +353,7 @@ RB.firms.push({
           aqReset(RB.sources.aq2),
           aqConsistency(50, RB.sources.aqConsistency),
           aqMargin(RB.sources.aqOther),
+          aqMarginUsage(RB.sources.aqOther),
           aqLots(RB.sources.aqLots),
           aqGold(20, 10, RB.sources.aqOther),
           aqScalp(RB.sources.aqOther),
@@ -410,6 +425,7 @@ RB.firms.push({
           aqConsistency(15, RB.sources.aqConsistency),
           aqFloat(RB.sources.aqFloat),
           aqMargin(RB.sources.aqOther),
+          aqMarginUsage(RB.sources.aqOther),
           aqLots(RB.sources.aqLots),
           aqGold(10, 10, RB.sources.aqOther),
           aqScalp(RB.sources.aqOther),

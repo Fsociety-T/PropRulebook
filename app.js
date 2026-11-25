@@ -672,6 +672,7 @@
     prohibited: "Prohibited conduct",
     risk: "Funded risk limit",
     margin: "Margin cap",
+    "margin-usage": "Average margin usage",
     gold: "XAUUSD sizing",
     execution: "Execution checklist",
     scalp: "Min hold / scalp",

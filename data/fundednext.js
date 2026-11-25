@@ -70,6 +70,20 @@ const fnRisk = (source) =>
     source,
   });
 
+const fnMarginUsage = (source) =>
+  RB.rule({
+    id: "margin-usage",
+    group: "blocker",
+    severity: "Rule violation",
+    title: "Margin usage guardrail",
+    value: "Target ≤30% (firm max varies)",
+    body: "Margin usage is the margin used by open positions ÷ account balance × 100. For XAUUSD, one lot is 100 oz and uses 100 × gold price ÷ leverage. Average margin usage for sizing is the sum of open XAUUSD lots ÷ balance × 100. This guardrail is personal; keep total margin below the firm maximum.",
+    calc: `Average margin usage = Σ(lots × 100 × gold price ÷ leverage) ÷ balance × 100.`,
+    example: `At {size}, 1 lot of XAUUSD at $4,000 and 1:15 funded uses $26,667 margin; usage is about {amt:26.7} on a $100K account and {amt:13.3} on a $200K account.`,
+    note: "FundedNext publishes no fixed lot cap. Use the smaller of the 3% risk budget and the margin ceiling; margin use should stay comfortably below any firm maximum.",
+    source,
+  });
+
 const fnNews = (source) =>
   RB.rule({
     id: "news",
@@ -327,6 +341,7 @@ RB.firms.push({
           fnQuickStrike(RB.sources.fn2),
           fnEa(RB.sources.fn2),
           fnLots(RB.sources.fnLots),
+          fnMarginUsage(RB.sources.fnRisk),
           fnGold(25, 15, RB.sources.fnRisk),
           fnExecution(RB.sources.fnRisk),
           fnInactivity(RB.sources.fnInactive),

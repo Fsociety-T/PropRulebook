@@ -58,6 +58,20 @@ const goatMargin = (source) =>
     source,
   });
 
+const goatMarginUsage = (source) =>
+  RB.rule({
+    id: "margin-usage",
+    group: "blocker",
+    severity: "Rule violation",
+    title: "Margin usage",
+    value: "Average margin ÷ equity ≤80%",
+    body: "Margin usage is the margin used by all open positions ÷ account equity × 100. For XAUUSD, one lot is 100 oz and uses 100 × gold price ÷ leverage. Average margin usage for sizing is the sum of those margins for open XAUUSD lots ÷ equity × 100; it must stay ≤80% of equity. The 80% rule applies to the whole account, not to a single instrument.",
+    calc: `Average margin usage = Σ(lots × 100 × gold price ÷ leverage) ÷ equity × 100. Gold: 1 lot = 100 oz.`,
+    example: `At {size}, 1 lot of XAUUSD at $4,000 and 1:10 uses $40,000 margin; if equity is {size}, usage is {amt:40} on a $100K account and {amt:20} on a $200K account.`,
+    note: "Trading platforms show Margin Level; when above 125% you are under 80% margin usage. A floating loss can push usage over 80% without opening anything.",
+    source,
+  });
+
 const goatGold = (evalLev, fundedLev, source) =>
   RB.rule({
     id: "gold",
@@ -316,6 +330,7 @@ RB.firms.push({
           goatMaxLoss(10, RB.sources.goat2),
           goatDaily(4, RB.sources.goat2),
           goatMargin(RB.sources.goatMargin),
+          goatMarginUsage(RB.sources.goatMargin),
           goatGold(20, 10, RB.sources.goatMargin),
           goatNews(RB.sources.goatNews),
           goatMinDays(3, 4, RB.sources.goat2),
@@ -407,6 +422,7 @@ RB.firms.push({
           goatMaxLoss(6, RB.sources.goat1),
           goatDaily(3, RB.sources.goat1, 2),
           goatMargin(RB.sources.goatMargin),
+          goatMarginUsage(RB.sources.goatMargin),
           goatGold(20, 10, RB.sources.goatMargin),
           goatNews(RB.sources.goatNews),
           goatMinDays(3, 4, RB.sources.goat1),
