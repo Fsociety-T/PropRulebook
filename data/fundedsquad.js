@@ -94,6 +94,19 @@ const fsReset = (source) =>
     source,
   });
 
+const fsMarginUsage = (source) =>
+  RB.rule({
+    id: "margin-usage",
+    group: "blocker",
+    severity: "Rule violation",
+    title: "Margin usage",
+    value: "Margin ÷ equity ≤ firm max",
+    body: "Margin used by open trades ÷ account equity × 100 must stay within the firm margin limit.",
+    calc: "Margin usage = Σ(lots × contract size × price ÷ leverage) ÷ equity × 100.",
+    example: `At {size}, using $40,000 margin gives {amt:40} on a $100K account and {amt:20} on a $200K account.`,
+    source,
+  });
+
 const fsLeverage = (fx, source) =>
   RB.rule({
     id: "leverage",
@@ -373,6 +386,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          fsMarginUsage(RB.sources.fsSquad),
           fsMaxLoss(12, RB.sources.fsSquad),
           fsDailyLoss(5, RB.sources.fsSquad),
           fsInactivity(RB.sources.fsChallenge),
@@ -461,6 +475,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          fsMarginUsage(RB.sources.fsSquad),
           fsMaxLoss(8, RB.sources.fsLite),
           fsDailyLoss(4, RB.sources.fsLite),
           fsInactivity(RB.sources.fsChallenge),
@@ -549,6 +564,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          fsMarginUsage(RB.sources.fsSquad),
           fsMaxLoss(12, RB.sources.fsFlex),
           fsDailyLoss(4, RB.sources.fsFlex),
           fsInactivity(RB.sources.fsChallenge),
@@ -637,6 +653,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          fsMarginUsage(RB.sources.fsSquad),
           fsMaxLoss(10, RB.sources.fsOneFlex),
           fsDailyLoss(3, RB.sources.fsOneFlex),
           fsInactivity(RB.sources.fsChallenge),
@@ -704,6 +721,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          fsMarginUsage(RB.sources.fsSquad),
           RB.rule({
             id: "max-loss",
             group: "killer",

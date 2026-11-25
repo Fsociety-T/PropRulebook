@@ -67,6 +67,19 @@ const t5Reset = (source) =>
     source,
   });
 
+const t5MarginUsage = (source) =>
+  RB.rule({
+    id: "margin-usage",
+    group: "blocker",
+    severity: "Rule violation",
+    title: "Margin usage",
+    value: "Margin ÷ equity ≤ firm max",
+    body: "Margin used by open trades ÷ account equity × 100 must stay within the firm margin limit.",
+    calc: "Margin usage = Σ(lots × contract size × price ÷ leverage) ÷ equity × 100.",
+    example: `At {size}, using $40,000 margin gives {amt:40} on a $100K account and {amt:20} on a $200K account.`,
+    source,
+  });
+
 const t5Leverage = (source) =>
   RB.rule({
     id: "leverage",
@@ -189,6 +202,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          t5MarginUsage(RB.sources.t5Two),
           t5MaxLoss(10, RB.sources.t5Two),
           t5Daily(3, RB.sources.t5Two),
           t5News(RB.sources.t5News),
@@ -301,6 +315,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          t5MarginUsage(RB.sources.t5Two),
           t5MaxLoss(10, RB.sources.t5HighDD),
           t5Daily(5, RB.sources.t5HighDD),
           t5News(RB.sources.t5News),
@@ -425,6 +440,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          t5MarginUsage(RB.sources.t5Two),
           t5MaxLoss(10, RB.sources.t5Summer),
           t5Daily(3, RB.sources.t5Summer),
           t5News(RB.sources.t5SummerFaq),

@@ -165,6 +165,19 @@ const fpWeekendEval = (source) =>
     source,
   });
 
+const fpMarginUsage = (source) =>
+  RB.rule({
+    id: "margin-usage",
+    group: "blocker",
+    severity: "Rule violation",
+    title: "Margin usage",
+    value: "Margin ÷ equity ≤ firm max",
+    body: "Margin used by open trades ÷ account equity × 100 must stay within the firm margin limit.",
+    calc: "Margin usage = Σ(lots × contract size × price ÷ leverage) ÷ equity × 100.",
+    example: `At {size}, using $40,000 margin gives {amt:40} on a $100K account and {amt:20} on a $200K account.`,
+    source,
+  });
+
 const fpPayoutNone = (source) =>
   RB.rule({
     id: "payout-none",
@@ -292,6 +305,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          fpMarginUsage(RB.sources.fpStandard),
           fpMaxLoss(10, RB.sources.fpStandard),
           fpDailyLoss(5, "Selecting the 3% daily loss option removes the minimum trading day requirement.", RB.sources.fpStandard),
           fpInactivity(RB.sources.fpStandard),
@@ -399,6 +413,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          fpMarginUsage(RB.sources.fpStandard),
           fpMaxLoss(12, RB.sources.fpFlex2),
           fpDailyLoss(4, "The limit resets at 00:00 platform time. Both floating and closed losses count.", RB.sources.fpFlex2),
           fpInactivity(RB.sources.fpFlex2),
@@ -518,6 +533,7 @@ RB.firms.push({
       },
       rules: {
         shared: [
+          fpMarginUsage(RB.sources.fpStandard),
           fpMaxLoss(12, RB.sources.fpFlex1),
           fpDailyLoss(3, "The 2% daily loss option is available at purchase. The limit resets at 00:00 platform time.", RB.sources.fpFlex1),
           fpInactivity(RB.sources.fpFlex1),

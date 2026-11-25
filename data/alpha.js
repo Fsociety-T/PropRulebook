@@ -1,5 +1,18 @@
 /* Alpha Capital — Alpha Pro 6%, 8%, 10% */
 
+const alphaMarginUsage = (source) =>
+  RB.rule({
+    id: "margin-usage",
+    group: "blocker",
+    severity: "Rule violation",
+    title: "Margin usage",
+    value: "Margin ÷ equity ≤ firm max",
+    body: "Margin used by open trades ÷ account equity × 100 must stay within the firm margin limit.",
+    calc: "Margin usage = Σ(lots × contract size × price ÷ leverage) ÷ equity × 100.",
+    example: `At {size}, using $40,000 margin gives {amt:40} on a $100K account and {amt:20} on a $200K account.`,
+    source,
+  });
+
 const alphaPro = (pct, t1, t2, daily, basis) => {
   const basisLabel =
     basis === "higher"
@@ -72,6 +85,7 @@ const alphaPro = (pct, t1, t2, daily, basis) => {
     },
     rules: {
       shared: [
+        alphaMarginUsage(RB.sources.alphaMax),
         RB.rule({
           id: "max-loss",
           group: "killer",
