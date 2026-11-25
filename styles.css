@@ -201,6 +201,16 @@ button:disabled {
   font-weight: 500;
 }
 
+.topbar-price {
+  font-size: 12px;
+  color: var(--dim);
+}
+
+.topbar-price strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
 .topbar-actions {
   display: flex;
   align-items: center;

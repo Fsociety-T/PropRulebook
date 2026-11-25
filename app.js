@@ -1319,12 +1319,14 @@
       if (event.target.closest(".search-result")) closeSearch(false);
     });
 
-    sizeSelect.addEventListener("change", () => {
-      state.size = Number(sizeSelect.value);
-      store.set("size", state.size);
-      render({ preserveScroll: true });
-      toast(`Examples updated to ${fmtMoney(state.size)}`);
-    });
+    if (sizeSelect) {
+      sizeSelect.addEventListener("change", () => {
+        state.size = Number(sizeSelect.value);
+        store.set("size", state.size);
+        render({ preserveScroll: true });
+        toast(`Examples updated to ${fmtMoney(state.size)}`);
+      });
+    }
 
     printBtn.addEventListener("click", () => window.print());
 
@@ -1452,12 +1454,14 @@
   /* ------------------------------------------------------------------ */
 
   function init() {
-    sizeSelect.innerHTML = RB.sizes
-      .map(
-        (size) =>
-          `<option value="${size}" ${size === state.size ? "selected" : ""}>${fmtMoney(size)}</option>`
-      )
-      .join("");
+    if (sizeSelect) {
+      sizeSelect.innerHTML = RB.sizes
+        .map(
+          (size) =>
+            `<option value="${size}" ${size === state.size ? "selected" : ""}>${fmtMoney(size)}</option>`
+        )
+        .join("");
+    }
 
     renderNav();
     bindEvents();
