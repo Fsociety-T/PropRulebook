@@ -1457,6 +1457,11 @@ kbd {
   font-size: 9.5px;
 }
 
+.model-price {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .model-card-meta span::before {
   content: "· ";
   color: #3d4e64;

@@ -580,12 +580,10 @@
   function renderIndex() {
     view.removeAttribute("data-model-key");
     const models = allModels();
-    const pages = models.filter((model) => !model.hideInSidebar);
-
+    const pages = models;
     const firms = RB.firms
       .map((firm) => {
         const cards = firm.models
-          .filter((model) => !model.hideInSidebar)
           .map((model) => modelCard(firm, model))
           .join("");
         return `
@@ -612,6 +610,14 @@
         <div class="index-firms">${firms}</div>
         ${siteFoot()}
       </div>`;
+  }
+
+  function modelPrice(model) {
+    const prices = model.prices || {};
+    const parts = Object.entries(prices).map(([size, price]) =>
+      size === "100000" ? `${fmtMoney(100000)}: ${esc(price)}` : size === "200000" ? `${fmtMoney(200000)}: ${esc(price)}` : `${esc(price)}`
+    );
+    return parts.length ? `${parts.join(" · ")}` : "";
   }
 
   function modelCard(firm, model) {
@@ -646,6 +652,7 @@
           <div class="model-card-meta">
             <span>${esc(model.sizes)}</span>
             <span>${esc(model.phases.map(phaseLabel).join(" · "))}</span>
+            ${modelPrice(model) ? `<span class="model-price">${modelPrice(model)}</span>` : ""}
             ${quick ? `<span>${esc(quick)}</span>` : ""}
           </div>
         </a>

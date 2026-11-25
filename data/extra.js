@@ -7,6 +7,14 @@ const esource = RB.src;
 function addModels(firmId, models) {
   const firm = RB.firms.find((f) => f.id === firmId);
   if (!firm) throw new Error(`Unknown firm ${firmId}`);
+  models.forEach((model) => {
+    const prices = {};
+    if (model.sizes.includes("100K")) prices["100000"] = "$100,000";
+    if (model.sizes.includes("200K")) prices["200000"] = "$200,000";
+    if (Object.keys(prices).length) model.prices = prices;
+    const isTwoStep = /2-step|two step/i.test(model.id) || /2 Step/.test(model.name);
+    if (!isTwoStep) model.hideInSidebar = true;
+  });
   firm.models.push(...models);
 }
 
