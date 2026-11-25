@@ -384,6 +384,10 @@
         ? `<div class="notice notice-warn"><strong>Example size:</strong> ${fmtMoney(state.size)} is outside this model's listed range (${esc(model.sizes)}). The dollar examples still update, but confirm this size is offered.</div>`
         : "";
 
+    const priceNotice = modelPrice(model)
+      ? `<div class="notice notice-price"><strong>Prices:</strong> ${modelPrice(model)}</div>`
+      : "";
+
     const phaseToggle =
       model.phases.length > 1
         ? `<div class="segmented" role="group" aria-label="Rule phase">
@@ -474,6 +478,7 @@
             <span class="dot"></span>
             <span class="verified">Verified ${esc(RB.verified)}</span>
           </div>
+          ${priceNotice}
           ${variants}
           ${sizeNotice}
         </header>

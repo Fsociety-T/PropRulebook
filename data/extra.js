@@ -4,13 +4,32 @@ const erule = (o) => RB.rule({ verified: RB.verified, ...o });
 
 const esource = RB.src;
 
+/* Add prices to all models where sizes include $100K or $200K. */
+const sizeInSizes = (sizes, size) => {
+  const target = size / 1000;
+  const nums = Array.from(String(sizes).matchAll(/(\d+(?:\.\d+)?)K/g)).map((m) => Number(m[1]));
+  if (!nums.length) return false;
+  const min = Math.min(...nums);
+  const max = Math.max(...nums);
+  return target >= min && target <= max;
+};
+
+RB.firms.forEach((firm) => {
+  firm.models.forEach((model) => {
+    const prices = model.prices || {};
+    if (sizeInSizes(model.sizes, 100000)) prices["100000"] = prices["100000"] || "$100,000";
+    if (sizeInSizes(model.sizes, 200000)) prices["200000"] = prices["200000"] || "$200,000";
+    if (Object.keys(prices).length) model.prices = prices;
+  });
+});
+
 function addModels(firmId, models) {
   const firm = RB.firms.find((f) => f.id === firmId);
   if (!firm) throw new Error(`Unknown firm ${firmId}`);
   models.forEach((model) => {
     const prices = {};
-    if (model.sizes.includes("100K")) prices["100000"] = "$100,000";
-    if (model.sizes.includes("200K")) prices["200000"] = "$200,000";
+    if (sizeInSizes(model.sizes, 100000)) prices["100000"] = "$100,000";
+    if (sizeInSizes(model.sizes, 200000)) prices["200000"] = "$200,000";
     if (Object.keys(prices).length) model.prices = prices;
     const isTwoStep = /2-step|two step/i.test(model.id) || /2 Step/.test(model.name);
     if (!isTwoStep) model.hideInSidebar = true;

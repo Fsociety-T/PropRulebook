@@ -2694,3 +2694,11 @@ kbd {
 .calc-out strong {
   font-size: 16px;
 }
+
+.notice-price {
+  color: var(--text);
+}
+
+.notice-price strong {
+  font-weight: 600;
+}
