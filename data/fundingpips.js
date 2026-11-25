@@ -322,7 +322,6 @@ RB.firms.push({
           fpPayoutNone(RB.sources.fpStandard),
         ],
         funded: [
-          fpStriking(RB.sources.fpStandard),
           fpNewsWindow(RB.sources.fpNews),
           fpWeekendMaster(RB.sources.fpNews),
           RB.rule({
@@ -347,6 +346,7 @@ RB.firms.push({
             example: "On {size}, each profitable day needs at least {amt:0.5}; a {amt:1} best day needs at least {amt:2.86} total profit to stay under 35%.",
             source: RB.sources.fpStandard,
           }),
+          fpStriking(RB.sources.fpStandard),
           fpPayoutMin(RB.sources.fpStandard),
         ],
       },
@@ -442,7 +442,6 @@ RB.firms.push({
           fpPayoutNone(RB.sources.fpFlex2),
         ],
         funded: [
-          fpStriking(RB.sources.fpFlex2),
           fpNewsWindow(RB.sources.fpNews),
           fpWeekendMaster(RB.sources.fpNews),
           RB.rule({
@@ -467,6 +466,7 @@ RB.firms.push({
             example: "On {size}, each profitable day needs at least {amt:0.5}.",
             source: RB.sources.fpFlex2,
           }),
+          fpStriking(RB.sources.fpFlex2),
           fpPayoutMin(RB.sources.fpFlex2),
         ],
       },
@@ -560,7 +560,6 @@ RB.firms.push({
           fpPayoutNone(RB.sources.fpFlex1),
         ],
         funded: [
-          fpStriking(RB.sources.fpFlex1),
           fpNewsWindow(RB.sources.fpNews),
           fpWeekendMaster(RB.sources.fpNews),
           RB.rule({
