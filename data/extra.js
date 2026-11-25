@@ -4,14 +4,6 @@ const erule = (o) => RB.rule({ verified: RB.verified, ...o });
 
 const esource = RB.src;
 
-/* Add picture logo fallbacks to every firm. */
-RB.firms.forEach((firm) => {
-  if (!firm.logo) {
-    const text = firm.name.replace(/[^A-Za-z]/g, "").slice(0, 2).toUpperCase();
-    firm.logo = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" rx="20" fill="${encodeURIComponent(firm.color)}"></rect><text x="20" y="26" font-family="sans-serif" font-size="16" font-weight="800" fill="#ffffff" text-anchor="middle">${text}</text></svg>`;
-  }
-});
-
 /* Add prices to all models where sizes include $100K or $200K. */
 const sizeInSizes = (sizes, size) => {
   const target = size / 1000;

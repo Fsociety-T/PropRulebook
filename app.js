@@ -282,9 +282,7 @@
 
     const firms = RB.firms
       .map((firm) => {
-        const logo = firm.logo
-          ? `<img class="nav-firm-logo" src="${esc(firm.logo)}" alt="${esc(firm.name)} logo" style="--firm:${esc(firm.color)}">`
-          : `<span class="nav-firm-mark" style="--firm:${esc(firm.color)}">${esc(firm.short)}</span>`;
+        const logo = `<span class="nav-firm-mark" style="--firm:${esc(firm.color)}">${esc(firm.short)}</span>`;
         const models = firm.models
           .filter((model) => !model.hideInSidebar)
           .map((model) => {
