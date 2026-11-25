@@ -484,6 +484,8 @@
             <span class="dot"></span>
             <span>Listed sizes <strong>${esc(model.sizes)}</strong></span>
             <span class="dot"></span>
+            <span>Max allocation <strong>${esc(firmMaxAllocation(firm))}</strong></span>
+            <span class="dot"></span>
             <span class="verified">Verified ${esc(RB.verified)}</span>
           </div>
           ${priceNotice}
@@ -631,6 +633,21 @@
       size === "100000" ? `${fmtMoney(100000)}: ${esc(price)}` : size === "200000" ? `${fmtMoney(200000)}: ${esc(price)}` : `${esc(price)}`
     );
     return parts.length ? `${parts.join(" · ")}` : "";
+  }
+
+  const FIRM_MAX_ALLOCATION = {
+    fundingpips: "$400K",
+    "alpha-capital": "$400K",
+    fundedsquad: "$800K combined cap",
+    the5ers: "$500K scaling to $4M",
+    fundednext: "$300K CFD / $750K Challenge",
+    goat: "$600K scaling to $5M",
+    "funded-elite": "$400K total across programs",
+    aquafunded: "$400K (scaling to $4M)",
+  };
+
+  function firmMaxAllocation(firm) {
+    return FIRM_MAX_ALLOCATION[firm.id] || "—";
   }
 
   function modelCard(firm, model) {
