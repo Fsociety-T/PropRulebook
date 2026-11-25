@@ -48,6 +48,7 @@ data/fundingpips.js   FundingPips models and rules
 data/alpha.js         Alpha Pro factory for 6/8/10%
 data/fundedsquad.js   FundedSquad models and rules
 data/aquafunded.js    AquaFunded models and rules
+data/extra.js         additional models for existing prop firms
 data/rules.js         assembles window.RULEBOOK
 data/sources.md       every official source and verification date
 README.md             this file
