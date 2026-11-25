@@ -147,8 +147,8 @@ const feMarginUsage = (source) =>
     title: "Margin usage",
     value: "Average margin ÷ equity",
     body: "Margin usage is the margin used by all open positions ÷ account equity × 100. For XAUUSD, one lot is 100 oz and uses 100 × gold price ÷ leverage. Average margin usage for sizing is the sum of open XAUUSD lots ÷ equity × 100. Keep the average below your personal risk margin, typically 30% or the platform limit.",
-    calc: `Average margin usage = Σ(lots × 100 × gold price ÷ leverage) ÷ equity × 100. Gold: 1 lot = 100 oz.`,
-    example: `At $4,000 gold and 1:10 funded, 1 lot uses $40,000 margin; if equity is {size}, usage is {amt:40} on a $100K account and {amt:20} on a $200K account.`,
+    calc: `Average margin usage = Σ(lots × 100 × gold price ÷ leverage) ÷ equity × 100. Max lots for a target average usage = equity × target usage% ÷ (100 × gold price ÷ leverage).`,
+    example: `At $4,000 gold and 1:10 funded, 1 lot uses $40,000 margin; if equity is {size}, usage is {amt:40} on a $100K account and {amt:20} on a $200K account. To target 30% average margin, max lots = equity × 30% ÷ $4,000 = {amt:7.5} on a $100K account, so use 7.5 lots.`,
     note: "Calculated example: 1 lot × 100 oz × $4,000 ÷ 1:10 = $40,000 margin; $40,000 ÷ $100,000 equity = 40% usage.",
     source,
   });
