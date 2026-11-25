@@ -6,7 +6,7 @@ const RB = {
   verified: "25 Nov 2026",
   disclaimer:
     "Personal study notes, not an official rulebook. The firm's dashboard and terms always win. Rules change — re-check before sizing a trade.",
-  sizes: [100000, 200000],
+  sizes: [100000],
   firms: [],
   sources: {},
 };

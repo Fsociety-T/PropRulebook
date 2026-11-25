@@ -18,7 +18,7 @@ RB.firms.forEach((firm) => {
   firm.models.forEach((model) => {
     const prices = model.prices || {};
     if (sizeInSizes(model.sizes, 100000)) prices["100000"] = prices["100000"] || "$100,000";
-    if (sizeInSizes(model.sizes, 200000)) prices["200000"] = prices["200000"] || "$200,000";
+    delete prices["200000"];
     if (Object.keys(prices).length) model.prices = prices;
   });
 });
@@ -29,7 +29,6 @@ function addModels(firmId, models) {
   models.forEach((model) => {
     const prices = {};
     if (sizeInSizes(model.sizes, 100000)) prices["100000"] = "$100,000";
-    if (sizeInSizes(model.sizes, 200000)) prices["200000"] = "$200,000";
     if (Object.keys(prices).length) model.prices = prices;
     const isTwoStep = /2-step|two step/i.test(model.id) || /2 Step/.test(model.name);
     if (!isTwoStep) model.hideInSidebar = true;
