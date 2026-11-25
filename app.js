@@ -734,14 +734,16 @@
       const prev = autoBtn.textContent;
       autoBtn.textContent = "Loading…";
       try {
-        const res = await fetch("https://api.goldprice.dev/v1/prices?symbol=XAU-USD-SPOT");
+        const res = await fetch("https://r.jina.ai/http://api.goldprice.dev/v1/prices?symbol=XAU-USD-SPOT");
         const data = await res.json();
         const row = data.symbols?.find((item) => item.symbol === "XAU");
         if (row?.price) {
           qs("#calc-price").value = row.price;
           calculate();
         }
-      } catch {} finally {
+      } catch {
+        qs("#calc-price").placeholder = "Auto price unavailable";
+      } finally {
         autoBtn.textContent = prev;
       }
     });
