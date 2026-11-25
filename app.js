@@ -693,6 +693,7 @@
           <div class="calc-grid">
             <label>Account equity <input type="number" id="calc-equity" value="100000" min="0" step="100" autocomplete="off"></label>
             <label>XAUUSD price (oz value) <input type="number" id="calc-price" value="4000" min="0.01" step="0.01" autocomplete="off"></label>
+            <button type="button" id="calc-price-auto" class="btn">Auto price</button>
             <label>Leverage <input type="number" id="calc-leverage" value="10" min="0.01" step="0.01" autocomplete="off"></label>
             <label>Target average margin % <input type="number" id="calc-usage" value="30" min="0" step="0.1" autocomplete="off"></label>
             <label>Lots to check <input type="number" id="calc-lots" value="1" min="0" step="0.01" autocomplete="off"></label>
@@ -728,6 +729,22 @@
         </div>`;
     };
 
+    qs("#calc-price-auto").addEventListener("click", async () => {
+      const autoBtn = qs("#calc-price-auto");
+      const prev = autoBtn.textContent;
+      autoBtn.textContent = "Loading…";
+      try {
+        const res = await fetch("https://api.goldprice.dev/v1/prices?symbol=XAU-USD-SPOT");
+        const data = await res.json();
+        const row = data.symbols?.find((item) => item.symbol === "XAU");
+        if (row?.price) {
+          qs("#calc-price").value = row.price;
+          calculate();
+        }
+      } catch {} finally {
+        autoBtn.textContent = prev;
+      }
+    });
     qs("#calc-form").addEventListener("submit", (event) => {
       event.preventDefault();
       calculate();
