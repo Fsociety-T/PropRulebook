@@ -422,19 +422,32 @@ kbd {
   flex: 0 0 auto;
 }
 
-.nav-firm-logo {
+.nav-firm-logo,
+.nav-firm-mark {
   display: grid;
   place-items: center;
   min-width: 27px;
   height: 27px;
   border: 1px solid color-mix(in srgb, var(--firm) 40%, transparent);
-  border-radius: 50%;
   background: color-mix(in srgb, var(--firm) 13%, transparent);
   color: var(--firm);
   font-family: var(--mono);
   font-size: 9px;
   font-weight: 800;
   flex: 0 0 auto;
+  border-radius: 8px;
+}
+
+.nav-firm-logo[src] {
+  object-fit: cover;
+  object-position: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+}
+
+.nav-firm-mark {
+  border-radius: 50%;
 }
 
 .nav-firm-head > div {
