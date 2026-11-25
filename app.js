@@ -282,6 +282,7 @@
 
     const firms = RB.firms
       .map((firm) => {
+        const logo = `<span class="nav-firm-logo" style="--firm:${esc(firm.color)}">${esc(firm.short)}</span>`;
         const models = firm.models
           .filter((model) => !model.hideInSidebar)
           .map((model) => {
@@ -307,7 +308,7 @@
         return `
           <div class="nav-firm">
             <div class="nav-firm-head">
-              <span class="nav-firm-mark" style="--firm:${esc(firm.color)}">${esc(firm.short)}</span>
+              ${logo}
               <div>
                 <strong>${esc(firm.name)}</strong>
                 <span>${firm.models.length} models</span>
