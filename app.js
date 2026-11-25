@@ -22,7 +22,7 @@
   function updateTopbarPrice(model) {
     if (!topbarPrice) return;
     const price = modelPrice(model);
-    topbarPrice.innerHTML = price ? `Price <strong>${esc(price)}</strong>` : "Price <strong>$100,000</strong>";
+    topbarPrice.textContent = price || "";
   }
 
   if (!RB) {
