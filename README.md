@@ -4,12 +4,16 @@ A fast browser-based rules reference for prop-firm accounts. This is a **persona
 
 ## What's covered
 
+- **FundedNext**: Stellar 2-Step, Stellar 1-Step
+- **GOAT Funded**: 2 Step GOAT, 1 Step GOAT
+- **The5ers**: 2 Step, High Stakes, Summer 2-Step (Limited)
+- **Funded Elite**: 2 Step + Free Retry, 1 Step + Free Retry, Instant
 - **FundingPips**: 2 Step Standard, 2 Step Flex, 1 Step Flex
 - **Alpha Capital**: Alpha Pro 6%, 8%, 10% (variant switch)
 - **FundedSquad**: 2 Step Squad (Legacy), 2 Step Lite, 2 Step Flex, One-Step Flex, Instant Flex
-- **The5ers**: 2 Step, High Stakes, Summer 2-Step (Limited)
+- **AquaFunded**: 2 Step Pro, Instant Funding Standard
 
-Every rule shows severity, exact calculation, a dollar example, a source link and a verified date. Fees and refunds are excluded. Scaling is shown only where it changes drawdown limits.
+The account-size selector is limited to **$100K and $200K**. Every rule shows severity, exact calculation, a dollar example, a source link and a verified date. Fees and refunds are excluded. Scaling is shown only where it changes drawdown limits. Funded execution guardrails cover the daily reset, margin usage, XAUUSD sizing, news windows and execution safety.
 
 ## Live site
 
@@ -36,10 +40,14 @@ index.html            page shell, topbar, sidebar, search overlay
 styles.css            dark dashboard styling
 app.js                routing, search, compare, size interpolation, printing
 data/core.js          shared helpers, source registry, sizes, verified date
+data/fundednext.js    FundedNext models and rules
+data/goatfunded.js    GOAT Funded models and rules
+data/the5ers.js       The5ers models and rules
+data/fundedelite.js   Funded Elite models and rules
 data/fundingpips.js   FundingPips models and rules
 data/alpha.js         Alpha Pro factory for 6/8/10%
 data/fundedsquad.js   FundedSquad models and rules
-data/the5ers.js       The5ers models and rules
+data/aquafunded.js    AquaFunded models and rules
 data/rules.js         assembles window.RULEBOOK
 data/sources.md       every official source and verification date
 README.md             this file

@@ -95,6 +95,16 @@
       })
       .replace(/\{amt:([\d.]+)\}/g, (_, pct) => fmtMoney((state.size * Number(pct)) / 100))
       .replace(/\{floor:([\d.]+)\}/g, (_, pct) => fmtMoney(state.size * (1 - Number(pct) / 100)))
+      .replace(/\{goldLots:([\d.]+):([\d.]+):([\d.]+)\}/g, (_, leverage, marginPct, price) => {
+        const lots =
+          (state.size * (Number(marginPct) / 100) * Number(leverage)) /
+          (100 * Number(price));
+        return lots.toFixed(2);
+      })
+      .replace(/\{goldRiskLots:([\d.]+):([\d.]+)\}/g, (_, riskPct, stop) => {
+        const lots = (state.size * Number(riskPct)) / 100 / (100 * Number(stop));
+        return lots.toFixed(2);
+      })
       .replace(/\{size\}/g, fmtMoney(state.size));
   }
 
@@ -149,9 +159,10 @@
 
   function defaultCompare() {
     const preferred = [
-      "fundingpips/2-step-standard",
-      "alpha-capital/alpha-pro-6",
-      "the5ers/2-step",
+      "fundednext/stellar-2-step",
+      "goat/2-step",
+      "funded-elite/2-step",
+      "aquafunded/2-step-pro",
     ].filter((key) => findModel(key));
     if (preferred.length >= 2) return preferred;
     return allModels().slice(0, 3).map((model) => model.key);
@@ -659,6 +670,21 @@
     striking: "Striking System",
     duration: "Trade duration",
     prohibited: "Prohibited conduct",
+    risk: "Funded risk limit",
+    margin: "Margin cap",
+    gold: "XAUUSD sizing",
+    execution: "Execution checklist",
+    scalp: "Min hold / scalp",
+    payout: "Payout terms",
+    "profit-cap": "Profit cap",
+    consistency: "Consistency",
+    "min-days": "Minimum days",
+    "profit-target": "Profit target",
+    "goat-guard": "Goat Guard",
+    "quick-strike": "Quick Strike",
+    "free-retry": "Free retry",
+    ea: "Expert Advisors",
+    float: "Floating loss",
   };
 
   function renderCompare() {
@@ -861,10 +887,14 @@
     view.removeAttribute("data-model-key");
     const entries = Object.entries(RB.sources);
     const groups = [
+      { name: "FundedNext", prefix: "fn" },
+      { name: "GOAT Funded", prefix: "goat" },
+      { name: "The5ers", prefix: "t5" },
+      { name: "Funded Elite", prefix: "fe" },
       { name: "FundingPips", prefix: "fp" },
       { name: "Alpha Capital", prefix: "alpha" },
       { name: "FundedSquad", prefix: "fs" },
-      { name: "The5ers", prefix: "t5" },
+      { name: "AquaFunded", prefix: "aq" },
     ];
 
     const used = new Set();
