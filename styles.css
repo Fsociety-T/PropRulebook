@@ -2,37 +2,37 @@
    No external fonts or assets; works from file://. */
 
 :root {
-  color-scheme: dark;
-  --bg: #080c12;
-  --bg-soft: #0b111a;
-  --panel: #0f1723;
-  --panel-2: #131d2c;
-  --panel-3: #182436;
-  --line: #223147;
-  --line-soft: #1a2637;
-  --text: #e7eef8;
-  --muted: #93a4ba;
-  --dim: #6b7c93;
-  --accent: #5eead4;
-  --accent-2: #38bdf8;
-  --accent-soft: rgba(94, 234, 212, 0.1);
-  --red: #fb7185;
-  --red-soft: rgba(251, 113, 133, 0.12);
-  --amber: #fbbf24;
-  --amber-soft: rgba(251, 191, 36, 0.1);
-  --blue: #60a5fa;
-  --blue-soft: rgba(96, 165, 250, 0.11);
-  --purple: #c084fc;
-  --purple-soft: rgba(192, 132, 252, 0.12);
-  --slate: #94a3b8;
-  --slate-soft: rgba(148, 163, 184, 0.1);
+  color-scheme: light;
+  --bg: #f7f4eb;
+  --bg-soft: #f3eee2;
+  --panel: #fffaf1;
+  --panel-2: #f8f2e7;
+  --panel-3: #f2ebd9;
+  --line: #d9d0bc;
+  --line-soft: #e3dcc8;
+  --text: #3b3a36;
+  --muted: #8b897f;
+  --dim: #b4b1a5;
+  --accent: #a05a1f;
+  --accent-2: #8a4d18;
+  --accent-soft: rgba(160, 90, 31, 0.1);
+  --red: #b33826;
+  --red-soft: rgba(179, 56, 38, 0.1);
+  --amber: #b36b00;
+  --amber-soft: rgba(179, 107, 0, 0.1);
+  --blue: #4a6a9a;
+  --blue-soft: rgba(74, 106, 154, 0.1);
+  --purple: #7a5a8a;
+  --purple-soft: rgba(122, 90, 138, 0.1);
+  --slate: #7b7666;
+  --slate-soft: rgba(123, 118, 102, 0.1);
   --radius: 14px;
   --radius-sm: 9px;
-  --shadow: 0 18px 44px rgba(0, 0, 0, 0.38);
+  --shadow: 0 12px 30px rgba(139, 93, 31, 0.12);
   --sidebar-w: 286px;
   --topbar-h: 64px;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --sans: Georgia, Times New Roman, Palatino, serif;
 }
 
 *,
@@ -50,8 +50,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(900px 500px at 12% -10%, rgba(56, 189, 248, 0.08), transparent 60%),
-    radial-gradient(800px 460px at 88% 0%, rgba(94, 234, 212, 0.06), transparent 58%),
+    radial-gradient(700px 420px at 8% -6%, rgba(160, 90, 31, 0.05), transparent 60%),
+    radial-gradient(560px 340px at 92% 8%, rgba(74, 106, 154, 0.05), transparent 55%),
     var(--bg);
   color: var(--text);
   font-family: var(--sans);
@@ -67,11 +67,12 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  opacity: 0.35;
   background-image:
-    linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 70%);
+    linear-gradient(rgba(59, 58, 54, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 58, 54, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.18), transparent 70%);
 }
 
 body.nav-open,
