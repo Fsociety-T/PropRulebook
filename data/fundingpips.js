@@ -115,12 +115,12 @@ const fpStriking = (source) =>
     id: "striking",
     group: "killer",
     severity: "Hard breach on 4th",
-    title: "The Striking System",
+    title: "The Striking System (On Demand only)",
     value: "1% loss on one trade idea",
-    body: "The Striking System triggers when the closed and floating loss on one trade idea reaches 1% of the Master account size. A trade idea includes one trade, multiple same-direction trades on the same instrument, or new trades opened within 10 minutes of closing a losing trade.",
+    body: "The Striking System applies only to models that offer an On Demand payout. It triggers when the closed and floating loss on one trade idea reaches 1% of the Master account size. A trade idea includes one trade, multiple same-direction trades on the same instrument, or new trades opened within 10 minutes of closing a losing trade.",
     calc: "Loss on the trade idea ÷ Master account size. Warnings are cumulative and do not reset between reward cycles.",
     example: "On {size}, a 1% loss is {amt:1}. 1st warning recorded; 2nd cuts the split by half; 3rd drops it to 20%; 4th closes the account.",
-    note: "Profits from trade ideas that received a warning are deducted from the account.",
+    note: "This rule is not present on every FundingPips model, only the models with an On Demand reward cycle.",
     source,
   });
 
